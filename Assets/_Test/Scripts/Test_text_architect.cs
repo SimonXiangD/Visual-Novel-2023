@@ -13,18 +13,43 @@ public class Test_text_architect : MonoBehaviour
         "Future is bright!",
         "Finally a shower tonight..."
     };
+    string longStr = "Some long long long string just for testing. " +
+        "I do not know if I am dead or alive and how can I reach eternity or just fall as a mortal but I will " +
+        "spend all my efforts into chasing the eternal future for you and me so I will never give up to reunite with you" +
+        "because you are all that I really care and need.";
     void Start()
     {
         dialogueSystem = DialogueSystem.instance;
         textArchitect = new TextArchitect(dialogueSystem.dialogueContainer.contentText);
-        textArchitect.buildMethod = TextArchitect.BuildMethod.instant;
+        textArchitect.buildMethod = TextArchitect.BuildMethod.typeWriter;
+
     }
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
 		{
-            textArchitect.Build(strSet[Random.Range(0, strSet.Length)]);
-		}
+            if (textArchitect.isBuilding)
+            {
+                if (!textArchitect.hurryUp)
+                {
+                    textArchitect.hurryUp = true;
+                }
+                else
+                {
+                    textArchitect.ForceComplete();
+                }
+            }
+            else
+            {
+                //textArchitect.Build(strSet[Random.Range(0, strSet.Length)]);
+                textArchitect.Build(longStr);
+
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.A))
+		{
+            textArchitect.Append(strSet[Random.Range(0, strSet.Length)]);
+        }
     }
 }

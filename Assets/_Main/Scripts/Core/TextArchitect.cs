@@ -11,11 +11,15 @@ public class TextArchitect
     // the tmp text we have, maybe from TextMeshProUGUI or TextMeshPro format
     public TMP_Text tmpro => tmpro_ui != null ? tmpro_ui : tmpro_world;
 
-    public string currentText => tmpro.text;
+    //public string currentText => tmpro.text;
 
+    // newly appended text
     public string targetText { get; private set; } = "";
+
+    // already displayed text
     public string preText { get; private set; } = "";
 
+    // all text
     public string fullTargetText => preText + targetText;
 
     // 3 choices
@@ -25,15 +29,22 @@ public class TextArchitect
     public Color textColor { get { return tmpro.color; } set { tmpro.color = value; } }
 
     // speed of typewriter, where we truncate it to interger in the variable charPerCycle
-    public float speed { get { return baseSpeed * speedMultiplier; } set { speedMultiplier = value; } }
+    private float speed { get { return baseSpeed * speedMultiplier; } set { speedMultiplier = value; } }
     private float baseSpeed = 1;
     private float speedMultiplier = 1;
 
-    public int charPerCycle { get { return (baseCharNum) * (speed < 2.0f ? 1 : speed < 2.5 ? 2 : 3); } }
+    // use this as true speed seems a better choice
+    public float showSpeed = 0.5f;
+
+    private int charPerCycle { get { return (baseCharNum) * (speed < 2.0f ? 1 : speed < 2.5 ? 2 : 3); } }
     private int baseCharNum = 1;
 
+    public bool hurryUp = false;
+    public int hurrySpeed = 5;
+
+    // record the building status of text
     Coroutine buildingProcess;
-    bool isBuilding => buildingProcess != null;
+    public bool isBuilding => buildingProcess != null;
 
     public TextArchitect(TextMeshPro textMeshPro)
 	{
@@ -50,7 +61,8 @@ public class TextArchitect
         preText = "";
         targetText = text;
         Stop();
-        return tmpro.StartCoroutine(Building());
+        buildingProcess = tmpro.StartCoroutine(Building());
+        return buildingProcess;
 	}
 
     public Coroutine Append( string text )
@@ -58,7 +70,8 @@ public class TextArchitect
         preText = tmpro.text;
         targetText = text;
         Stop();
-        return tmpro.StartCoroutine(Building());
+        buildingProcess = tmpro.StartCoroutine(Building());
+        return buildingProcess;
     }
 
     void Stop()
@@ -106,10 +119,37 @@ public class TextArchitect
         tmpro.ForceMeshUpdate();
         tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
 	}
+
+    public void ForceComplete()
+	{
+        switch(buildMethod)
+		{
+            case BuildMethod.typeWriter:
+                tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+                break;
+            case BuildMethod.fade:
+                break; 
+        }
+        Stop();
+        On_Complete();
+    }
+
     void Prepare_Typewriter()
 	{
+        tmpro.color = tmpro.color;
+        tmpro.text = preText;
+        tmpro.maxVisibleCharacters = 0;
+        tmpro.ForceMeshUpdate();
 
-	}
+        if (preText.Length > 0)
+		{
+            tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+		}
+        tmpro.text = fullTargetText;
+        // without force update, text will not be updated
+        tmpro.ForceMeshUpdate();
+
+    }
     void Prepare_Fade()
 	{
 
@@ -117,8 +157,13 @@ public class TextArchitect
 
     IEnumerator Build_Typewriter()
 	{
-        yield return null;
-	}
+        while(tmpro.maxVisibleCharacters < tmpro.textInfo.characterCount)
+		{
+            
+            tmpro.maxVisibleCharacters += charPerCycle * (hurryUp ? hurrySpeed : 1);
+            yield return new WaitForSeconds(0.01f / showSpeed / speed);
+        }
+    }
 
     IEnumerator Build_Fade()
 	{
@@ -127,6 +172,7 @@ public class TextArchitect
 
     void On_Complete()
 	{
+        hurryUp = false;
         buildingProcess = null;
 	}
 
