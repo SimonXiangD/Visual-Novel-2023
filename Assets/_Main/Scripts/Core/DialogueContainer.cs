@@ -8,11 +8,11 @@ public class DialogueContainer
     public GameObject root;
 
     // character name
-    public TMP_Text nameText;
+    public TextMeshProUGUI nameText;
 
     // dialogue content
-    public TMP_Text contentText;
+    public TextMeshProUGUI contentText;
 
     // additional info(if exist)
-    public TMP_Text infoText;
+    public TextMeshProUGUI infoText;
 }
