@@ -1,5 +1,6 @@
 namespace Dialogue
 {
+    // contain a single line that is converted to current action
     public class DIALOGUE_LINE
     {
         public string speaker;
@@ -13,6 +14,9 @@ namespace Dialogue
             this.command = command;
         }
 
+        public bool hasContent => content.Trim().Length > 0;
+        public bool hasCommand => command.Trim().Length > 0;
+        public bool hasSpeaker => speaker.Trim().Length > 0;
 
-    }
+	}
 }

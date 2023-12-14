@@ -1,24 +1,11 @@
 using Dialogue;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
-using System;
-using UnityEngine.Windows;
 
-public class DialogueParser : MonoBehaviour
+public class DialogueParser
 {
-	public static DialogueParser instance;
 	private string dividePattern = @"^(?:([\w|\s]+)\s)?(?:""(.*?)""\s)?(\w+\(.*\)\s)?";
 
-	public void Awake()
-	{
-		if (instance == null)
-		{
-			instance = this;
-		}
-		else DestroyImmediate(gameObject);
-	}
 	public DIALOGUE_LINE parse(string line)
 	{
 		(string speaker, string content, string command) = rigLine( line );

@@ -17,7 +17,7 @@ namespace Dirnot.Test
 
 		IEnumerator loadText( string path )
 		{
-			DialogueParser parser = DialogueParser.instance;
+			DialogueParser parser = new DialogueParser();
 
 			var stringList = FileManager.readLinesOfTxt(path);
 			foreach (string text in stringList)
