@@ -1,0 +1,3 @@
+Drinot as Dir "Hello my ambitions and confidence!" function(paraA, paraB, paraC)
+
+Simon as Sim "Fuck winnie pool the "yellow stupid bear"" function(paraA, paraB, paraC)

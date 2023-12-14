@@ -1,0 +1,11 @@
+Dirnot "Hello, welcome to my second world, 'my stranger friend'. " smile(0, "hello")
+
+"I dislike this place." cry("oh no")
+
+playSound("hello.wav")
+
+Jason "What's up mate?"
+
+Hello
+
+Alice "Hello, how are you?" (wave)

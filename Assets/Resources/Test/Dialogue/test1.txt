@@ -1,0 +1,16 @@
+Hello
+My
+Name
+Is
+Alice
+
+^(?:\s+(?<speaker>[^\s"]+))?(?:\s+"(?<Dialogue>(?:[^"]|(?<=\\")")*)"|)(?:\s+(?<command>\w+\([^)]*\)))?$
+
+^(?:(\s+?<speaker>[^"]+))?
+
+^\s.*
+
+// regex
+`sdfsadfas asdfasdf asdfasd ` + `"sdfsafsafasdf"asdfasdf"" ` + `fff(asdfasdf)`
+
+^(?:([\w|\s]+)\s)?(?:"(.*?)"\s)?(\w+\(.*\)\s)?

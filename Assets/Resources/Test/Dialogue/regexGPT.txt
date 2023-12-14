@@ -1,0 +1,68 @@
+# Your task is to give me a regex pattern written in c# based on such input string and output string:
+
+Input:
+The given line is in the form of:
+"""
+speaker "Dialogue" command()
+"""
+
+Output:
+The results is divided into 3 parts:
+
+speaker
+Dialogue
+command
+
+where:
+1. Speaker:
+This part is optional.
+This part is purely made of chars and do not contain double quotes.
+
+
+2. "Dialogue":
+This part is optional.
+Dialogue is wrapped in ""
+
+3. command:
+This part is optional.
+This part must contain brackets, and begin with a string like function name.
+
+Here are several examples using the required regex:
+
+1. 
+Input: 
+Dirnot "Hello, welcome to my second world, 'my stranger friend'. " smile(0, "hello")
+
+Output:
+Dirnot
+Hello, welcome to my second world, 'my stranger friend'. 
+smile(0, "hello")
+
+2.
+Input:
+"I dislike this place." cry("oh no")
+
+Output:
+None
+"I dislike this place."
+cry("oh no")
+
+3.
+Input:
+playSound("hello.wav")
+
+Output:
+None
+None
+playSound("hello.wav")
+
+4.
+Input:
+Jason "What's up mate?"
+
+Output:
+Jason 
+"What's up mate?"
+None
+
+# You only need to give the pattern, and do not give me other code. But do give some explanation about the regex pattern

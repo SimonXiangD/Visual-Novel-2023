@@ -1,18 +1,22 @@
 using UnityEngine;
 using TMPro;
 
-[System.Serializable]
-public class DialogueContainer 
+namespace Dialogue
 {
-    // root is parent of name, content, info
-    public GameObject root;
 
-    // character name
-    public TextMeshProUGUI nameText;
+    [System.Serializable]
+    public class DialogueContainer
+    {
+        // root is parent of name, content, info
+        public GameObject root;
 
-    // dialogue content
-    public TextMeshProUGUI contentText;
+        // character name
+        public TextMeshProUGUI nameText;
 
-    // additional info(if exist)
-    public TextMeshProUGUI infoText;
+        // dialogue content
+        public TextMeshProUGUI contentText;
+
+        // additional info(if exist)
+        public TextMeshProUGUI infoText;
+    }
 }

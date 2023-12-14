@@ -1,4 +1,6 @@
 public class FilePaths
 {
-	public static string rootPath = "_Main/Resources/";
+	public static string mainResourcePath = "Main/";
+	public static string testResourcePath = "Test/";
+	public static string dialoguePathName = "Dialogue/";
 }
