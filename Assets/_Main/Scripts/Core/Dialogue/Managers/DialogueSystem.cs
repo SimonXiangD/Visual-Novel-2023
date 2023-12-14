@@ -27,13 +27,21 @@ namespace Dialogue
 
 		public static DialogueSystem instance;
 
+        public delegate void DialogueSystemEvent();
+        public event DialogueSystemEvent userPromptNext;
+
+        public void TriggerUserPromptNext()
+        {
+            userPromptNext?.Invoke();
+        }
+
         private void Awake()
         {
             // singleton pattern
             if (instance == null)
             {
-                init();
                 instance = this;
+				init();
 
 			}
 			else DestroyImmediate(gameObject);

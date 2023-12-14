@@ -21,7 +21,21 @@ public class ConversationController
         process = dialogueSystem.StartCoroutine(RunningConversations(lines));
     }
 
-    void Stop()
+    bool userPrompt = true;
+
+    public ConversationController()
+    {
+        Debug.Log(dialogueSystem);
+		dialogueSystem.userPromptNext += TriggerUserPromptNext;
+
+	}
+
+    private void TriggerUserPromptNext()
+    {
+		userPrompt = true;
+	}
+
+	void Stop()
     {
         if (!isRunning) return;
 		dialogueSystem.StopCoroutine(process);
@@ -53,7 +67,11 @@ public class ConversationController
             {
                 yield return RunCommand(dialogue_line.command);
             }
-            yield return new WaitForSeconds(2);
+
+            // can be used for auto mode
+            //yield return new WaitForSeconds(2);
+
+            yield return WaitForInput();
 		}
 
 	}
@@ -63,6 +81,15 @@ public class ConversationController
         textArchitect.Build(content);
         while(textArchitect.isBuilding)
         {
+            if(userPrompt)
+            {
+                if(!textArchitect.hurryUp)
+                {
+                    textArchitect.hurryUp = true;
+                }
+                else textArchitect.ForceComplete();
+                userPrompt = false;
+            }
             yield return null;
         }
     }
@@ -70,6 +97,15 @@ public class ConversationController
     IEnumerator RunCommand(string command)
     {
         yield return null;
+    }
+
+    IEnumerator WaitForInput()
+    {
+        while(!userPrompt)
+        {
+            yield return null;
+        }
+        userPrompt = false;
     }
 
 }
