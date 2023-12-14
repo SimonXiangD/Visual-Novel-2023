@@ -18,7 +18,7 @@ public class DialogueParser
 		string content = "";
 		string command = "";
 
-		Debug.Log($"Start Parsing: {line}");
+		//Debug.Log($"Start Parsing: {line}");
 		Match match = Regex.Match(line, dividePattern);
 
 		if (match.Success)
@@ -26,11 +26,11 @@ public class DialogueParser
 			speaker = match.Groups[1].Value;
 			content = match.Groups[2].Value.Replace("\\\"", "\"");
 			command = match.Groups[3].Value;
-			Debug.Log("Success!");
+			//Debug.Log("Success!");
 
-			Debug.Log("Speaker: " + (string.IsNullOrEmpty(speaker) ? "None" : speaker));
-			Debug.Log("Dialogue: " + (string.IsNullOrEmpty(content) ? "None" : content));
-			Debug.Log("Command: " + (string.IsNullOrEmpty(command) ? "None" : command));
+			//Debug.Log("Speaker: " + (string.IsNullOrEmpty(speaker) ? "None" : speaker));
+			//Debug.Log("Dialogue: " + (string.IsNullOrEmpty(content) ? "None" : content));
+			//Debug.Log("Command: " + (string.IsNullOrEmpty(command) ? "None" : command));
 		}
 		else
 		{

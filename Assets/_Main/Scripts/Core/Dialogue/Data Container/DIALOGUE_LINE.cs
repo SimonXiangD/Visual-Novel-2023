@@ -1,3 +1,6 @@
+using UnityEngine;
+
+
 namespace Dialogue
 {
     // contain a single line that is converted to current action
@@ -17,6 +20,13 @@ namespace Dialogue
         public bool hasContent => content.Trim().Length > 0;
         public bool hasCommand => command.Trim().Length > 0;
         public bool hasSpeaker => speaker.Trim().Length > 0;
+
+        public void show()
+        {
+            Debug.Log(speaker);
+            Debug.Log(content);
+            Debug.Log(command);
+		}
 
 	}
 }

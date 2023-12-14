@@ -21,11 +21,10 @@ public class ConversationController
         process = dialogueSystem.StartCoroutine(RunningConversations(lines));
     }
 
-    bool userPrompt = true;
+    bool userPrompt = false;
 
     public ConversationController()
     {
-        Debug.Log(dialogueSystem);
 		dialogueSystem.userPromptNext += TriggerUserPromptNext;
 
 	}
@@ -58,10 +57,9 @@ public class ConversationController
                 }
 				else dialogueSystem.showName(dialogue_line.speaker);
 			}
-            // show content
-			//if (dialogue_line.hasContent)
-            {
-                yield return RunDialogue(dialogue_line.content);
+			// show content
+			{
+				yield return RunDialogue(dialogue_line.content);
             }
             if(dialogue_line.hasCommand)
             {
@@ -90,11 +88,12 @@ public class ConversationController
                 else textArchitect.ForceComplete();
                 userPrompt = false;
             }
-            yield return null;
         }
-    }
+		yield return null;
 
-    IEnumerator RunCommand(string command)
+	}
+
+	IEnumerator RunCommand(string command)
     {
         yield return null;
     }

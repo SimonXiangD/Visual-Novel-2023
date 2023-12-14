@@ -52,8 +52,8 @@ namespace Dialogue
 			dialogueParser = new DialogueParser();
 			conversationController = new ConversationController();
 			textArchitect = new TextArchitect(dialogueContainer.contentText);
-            Debug.Log(conversationController);
-			Debug.Log("Dialogue System inited!");
+            //Debug.Log(conversationController);
+			//Debug.Log("Dialogue System inited!");
 		}
 
 		private void Start()
@@ -80,8 +80,6 @@ namespace Dialogue
 
         public void Say(List<string> lines)
         {
-            Debug.Log("sfa");
-            Debug.Log(conversationController);
 			conversationController.StartConversation(lines);
 
 		}

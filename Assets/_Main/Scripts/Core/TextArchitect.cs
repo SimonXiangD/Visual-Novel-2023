@@ -26,7 +26,7 @@ public class TextArchitect
 
     // 3 choices
     public enum BuildMethod { instant, typeWriter, fade };
-    public BuildMethod buildMethod = BuildMethod.typeWriter;
+    public BuildMethod buildMethod = BuildMethod.instant;
 
     public Color textColor { get { return tmpro.color; } set { tmpro.color = value; } }
 
@@ -120,6 +120,7 @@ public class TextArchitect
         tmpro.text = fullTargetText;
         tmpro.ForceMeshUpdate();
         tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
+		Canvas.ForceUpdateCanvases();
 	}
 
     public void ForceComplete()
