@@ -77,7 +77,7 @@ public class TextArchitect
         return buildingProcess;
     }
 
-    void Stop()
+    public void Stop()
 	{
         if (!isBuilding) return;
         tmpro.StopCoroutine(buildingProcess);

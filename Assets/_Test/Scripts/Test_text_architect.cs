@@ -6,7 +6,8 @@ public class Test_text_architect : MonoBehaviour
 {
     DialogueSystem dialogueSystem;
     public TextArchitect textArchitect;
-    string[] strSet = new string[4]
+    public TextArchitect.BuildMethod bm = TextArchitect.BuildMethod.instant;
+	string[] strSet = new string[4]
     {
         "Today it's snowing!",
         "What to have for dinner?",
@@ -30,7 +31,16 @@ public class Test_text_architect : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(bm != textArchitect.buildMethod)
+        {
+            textArchitect.buildMethod = bm;
+            textArchitect.Stop();
+        }
+		if (Input.GetKeyDown(KeyCode.S))
+        {
+            textArchitect.Stop();
+        }
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
             if (textArchitect.isBuilding)
             {
