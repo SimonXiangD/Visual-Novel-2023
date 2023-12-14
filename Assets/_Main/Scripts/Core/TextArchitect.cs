@@ -18,9 +18,12 @@ public class TextArchitect
 
     // already displayed text
     public string preText { get; private set; } = "";
+    private int preTextLength => preText.Length;
 
     // all text
     public string fullTargetText => preText + targetText;
+    private int fullTargetTextLength => fullTargetText.Length;
+
 
     // 3 choices
     public enum BuildMethod { instant, typeWriter, fade };
@@ -40,7 +43,7 @@ public class TextArchitect
     private int baseCharNum = 1;
 
     public bool hurryUp = false;
-    public int hurrySpeed = 5;
+    public int hurrySpeed = 8;
 
     // record the building status of text
     Coroutine buildingProcess;
@@ -128,6 +131,7 @@ public class TextArchitect
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
                 break;
             case BuildMethod.fade:
+                tmpro.ForceMeshUpdate();
                 break; 
         }
         Stop();
@@ -152,8 +156,33 @@ public class TextArchitect
     }
     void Prepare_Fade()
 	{
+        tmpro.text = preText;
+        if(preTextLength > 0)
+		{
+            tmpro.ForceMeshUpdate();
+        }
+        tmpro.text += targetText;
+        tmpro.maxVisibleCharacters = int.MaxValue;
 
-	}
+        tmpro.ForceMeshUpdate();
+        Canvas.ForceUpdateCanvases();
+
+        TMP_TextInfo textInfo = tmpro.textInfo;
+
+        for (int i = 0; i < fullTargetTextLength; i++)
+		{
+            TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+            if (!charInfo.isVisible) continue;
+
+            int vertexIndex = charInfo.vertexIndex;
+            for(int k = 0; k < 4; k++)
+			{
+                textInfo.meshInfo[charInfo.materialReferenceIndex].colors32[vertexIndex + k].a = i < preTextLength ? byte.MaxValue : byte.MinValue;
+			}
+        }
+        tmpro.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+
+    }
 
     IEnumerator Build_Typewriter()
 	{
@@ -167,7 +196,53 @@ public class TextArchitect
 
     IEnumerator Build_Fade()
 	{
-        yield return null;
+        
+        int minRange = preTextLength;
+        int maxRange = minRange + 1;
+        float fadeSpeed = (hurryUp ? hurrySpeed : 1) * 32;
+        TMP_TextInfo textInfo = tmpro.textInfo;
+        //Debug.Log("start building!");
+        //Debug.Log("text is : " );
+        //Debug.Log(tmpro.text);
+        while (true)
+		{
+            for(int i = minRange; i < maxRange; i++)
+			{
+                TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
+                if (!charInfo.isVisible)
+                {
+                    minRange++;
+                    continue;
+                }
+
+                int vertexIndex = charInfo.vertexIndex;
+                bool flag = true;
+                for (int k = 0; k < 4; k++)
+                {
+                    float val = textInfo.meshInfo[0].colors32[vertexIndex + k].a + fadeSpeed;
+                    textInfo.meshInfo[0].colors32[vertexIndex + k].a = (
+                        val >= 255 ? byte.MaxValue : ((byte)val));
+                    if(val < 255)
+					{
+                        flag = false;
+					}
+                }
+                if (flag) minRange++;
+            }
+            tmpro.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+
+            if (minRange >= maxRange)
+			{
+                maxRange++;
+			}
+            if (maxRange > textInfo.characterCount)
+			{
+                break;
+			}
+            yield return new WaitForEndOfFrame();
+            //yield return new WaitForSeconds(0.0001f / showSpeed  / speed);
+            //yield return new WaitForSeconds(100 * 0.01f / showSpeed / (256 / fadeSpeed) / speed);
+        }
     }
 
     void On_Complete()

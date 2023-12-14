@@ -17,11 +17,14 @@ public class Test_text_architect : MonoBehaviour
         "I do not know if I am dead or alive and how can I reach eternity or just fall as a mortal but I will " +
         "spend all my efforts into chasing the eternal future for you and me so I will never give up to reunite with you" +
         "because you are all that I really care and need.";
+
+
     void Start()
     {
+        //longStr = "dfasdfadf";
         dialogueSystem = DialogueSystem.instance;
         textArchitect = new TextArchitect(dialogueSystem.dialogueContainer.contentText);
-        textArchitect.buildMethod = TextArchitect.BuildMethod.typeWriter;
+        textArchitect.buildMethod = TextArchitect.BuildMethod.fade;
 
     }
 
@@ -31,11 +34,11 @@ public class Test_text_architect : MonoBehaviour
 		{
             if (textArchitect.isBuilding)
             {
-                if (!textArchitect.hurryUp)
-                {
-                    textArchitect.hurryUp = true;
-                }
-                else
+                //if (!textArchitect.hurryUp)
+                //{
+                //    textArchitect.hurryUp = true;
+                //}
+                //else
                 {
                     textArchitect.ForceComplete();
                 }
