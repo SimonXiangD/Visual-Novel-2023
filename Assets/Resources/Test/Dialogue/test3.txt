@@ -1,3 +1,6 @@
-Drinot as Dir "Hello my ambitions and confidence!" function(paraA, paraB, paraC)
-
-Simon as Sim "Fuck winnie pool the "yellow stupid bear"" function(paraA, paraB, paraC)
+Drinot as Dir at 1:2 [0:angry] "Fuck this planet" Effect(dest)
+Dirnot at 2:3 as Simon [1:disappointed] "I hate many things" Effect(sigh)
+Dirnot at 2:3 [1:disappointed] "I hate many things" Effect(sigh)
+AAA as smalla  "I hate many things" Effect(sigh)
+Jason [1:disappointed] "I hate many things" Effect(sigh)
+Alice "Try say test" 
