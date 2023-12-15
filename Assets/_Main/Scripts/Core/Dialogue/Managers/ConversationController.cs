@@ -55,7 +55,7 @@ public class ConversationController
                 {
                     dialogueSystem.hideName();
                 }
-				else dialogueSystem.showName(dialogue_line.speaker);
+				else dialogueSystem.showName(dialogue_line.speakerName);
 			}
 			// show content
 			{
