@@ -1,0 +1,52 @@
+# Your task is to give me a regex pattern written in c# based on such input string and output string:
+
+Input:
+The given line is in the form of:
+"""
+function(-s "hello" -a "adfasdf" -c "asdfsadf")
+"""
+
+Output:
+The results is divided into 2 parts:
+
+part 1. name: function  
+
+part 2. command arguments:
+-s "hello"
+-a "asfasdf"
+-c "asdfsadf"
+
+where:
+1. name:
+funciton is the name, and it is before the left bracket.
+
+
+2. command arguments:
+There are unlimited groups of command arguments, each group in the form of :
+-s + s_content
+
+You need to return part 1 as string, part 2 as list of strings.
+
+Here are some examples.
+
+1. 
+Input: 
+play(-s "Hello.wav" -v 100)
+
+Output:
+play 
+
+-s "Hello.wav"
+-v 100
+
+2.
+Input:
+showSprite(-c "Knight" -f false)
+
+Output:
+showSprite
+
+-c "Knight" 
+-f false
+
+# After generating the result, give some explanation about the regex pattern
