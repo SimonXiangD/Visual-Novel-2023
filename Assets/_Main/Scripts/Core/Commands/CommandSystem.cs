@@ -9,6 +9,9 @@ public class CommandSystem : MonoBehaviour
 {
     public static CommandSystem instance { get; private set; }
 	CommandDatabase database;
+	private Coroutine process;
+	public bool isRunning => process != null;
+
 	private void Awake()
 	{
 		if (instance == null)
@@ -31,12 +34,46 @@ public class CommandSystem : MonoBehaviour
 		}
 	}
 
-	public void Execute(string cmdName)
+	public Coroutine Execute(string cmdName, params string[] args)
 	{
 		Delegate command = database.getCommand(cmdName);
-		if(command != null)
+		if (command == null) return null;
+		return StartExecuteProcess(command, args);
+	}
+
+	private Coroutine StartExecuteProcess(Delegate command, params string[] args )
+	{
+		StopProcess();
+		process = StartCoroutine(RunningExecuteProcess(command, args));
+		return process;
+	}
+
+	private IEnumerator RunningExecuteProcess(Delegate command, params string[] args)
+	{
+		if (command is Action)
 		{
 			command.DynamicInvoke();
 		}
+		else if (command is Action<string[]>)
+		{
+			command.DynamicInvoke((object)args);
+		}
+		else if (command is Func<IEnumerator>)
+		{
+			yield return ((Func<IEnumerator>)command)();
+		}
+		else if(command is Func<string[], IEnumerator>)
+		{
+			yield return ((Func<string[], IEnumerator>)command)(args);
+		}
+
+		process = null;
+	}
+
+	void StopProcess()
+	{
+		if(process == null) return;
+		StopCoroutine(process);
+		process = null;
 	}
 }

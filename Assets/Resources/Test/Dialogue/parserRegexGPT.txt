@@ -3,13 +3,17 @@
 Input:
 The given line is in the form of:
 """
-function(-s "hello" -a "adfasdf" -c "asdfsadf")
+[wait]function(-s "hello" -a "adfasdf" -c "asdfsadf")
 """
 
 Output:
-The results is divided into 2 parts:
+The results is divided into 3 parts:
 
-part 1. name: function  
+part 0. prefix: 
+wait
+
+part 1. name: 
+function  
 
 part 2. command arguments:
 -s "hello"
@@ -17,6 +21,9 @@ part 2. command arguments:
 -c "asdfsadf"
 
 where:
+0. prefix
+prefix is wrapped in middle brackets and appear before name, this part is optional.
+
 1. name:
 funciton is the name, and it is before the left bracket.
 
@@ -31,9 +38,12 @@ Here are some examples.
 
 1. 
 Input: 
-play(-s "Hello.wav" -v 100)
+[w]play(-s "Hello.wav" -v 100)
 
 Output:
+
+w
+
 play 
 
 -s "Hello.wav"
@@ -44,9 +54,14 @@ Input:
 showSprite(-c "Knight" -f false)
 
 Output:
+
+None
+
 showSprite
 
 -c "Knight" 
 -f false
 
-# After generating the result, give some explanation about the regex pattern
+# After generating the result, give some explanation about the regex pattern. You also need to group the parts with label in regex
+
+^[\[(.*?)\]]?(.*?)\((.*?)\)$

@@ -6,11 +6,16 @@ public class Test_Cmd : MonoBehaviour
 {
     void Start()
     {
-        CommandSystem.instance.Execute("print");
+		StartCoroutine(Running());
     }
 
-    void Update()
+    IEnumerator Running()
     {
-        
-    }
+		yield return CommandSystem.instance.Execute("print");
+		yield return CommandSystem.instance.Execute("printMp", "Hello", "Hello2");
+		string[] arr = { "l1", "lnew" };
+		yield return CommandSystem.instance.Execute("lambdaMp", arr);
+		yield return CommandSystem.instance.Execute("coprint");
+		yield return CommandSystem.instance.Execute("coprintMp", "co1", "co2", "Distrust and boredom");
+	}
 }

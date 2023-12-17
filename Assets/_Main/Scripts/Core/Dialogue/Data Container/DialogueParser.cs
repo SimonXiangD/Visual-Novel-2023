@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 public class DialogueParser
 {
-	private string dividePattern = @"^(?:([^""]+)\s+)?(?:""(.*?)""\s+)?(\w+\(.*\)\s+)?";
+	private string dividePattern = @"^(?:([^""]+)\s+)?(?:""(.*?)""\s+)?(.+\(.*\).*\s)?$";
 
 	public DIALOGUE_LINE parse(string line)
 	{
@@ -26,6 +26,13 @@ public class DialogueParser
 			speaker = match.Groups[1].Value;
 			content = match.Groups[2].Value.Replace("\\\"", "\"");
 			command = match.Groups[3].Value;
+
+			if(content == string.Empty && command == string.Empty)
+			{
+				speaker = "";
+				content = line;
+			}
+
 			//Debug.Log("Success!");
 
 			//Debug.Log("Speaker: " + (string.IsNullOrEmpty(speaker) ? "None" : speaker));

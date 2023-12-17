@@ -10,6 +10,7 @@ namespace Dialogue
         public string content;
         public string command;
         public DL_SPEAKER speakerInfo;
+        public DL_COMMAND commandInfo;
         public string speakerName => speakerInfo.speakerName;
 		
 
@@ -19,6 +20,7 @@ namespace Dialogue
             this.content = content;
             this.command = command;
 			this.speakerInfo = new DL_SPEAKER(speaker);
+            this.commandInfo = new DL_COMMAND(command);
             show();
         }
 
@@ -28,10 +30,12 @@ namespace Dialogue
 
         public void show()
         {
+
             Debug.Log(speaker);
             Debug.Log(content);
             Debug.Log(command);
-            speakerInfo.show();
+            //speakerInfo.show();
+            //commandInfo.show();
 		}
 	}
 

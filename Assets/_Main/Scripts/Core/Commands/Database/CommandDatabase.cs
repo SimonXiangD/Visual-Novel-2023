@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandDatabase : MonoBehaviour
+public class CommandDatabase 
 {
     Dictionary<string, Delegate> database = new Dictionary<string, Delegate>();
     public bool hasCommand(string command)

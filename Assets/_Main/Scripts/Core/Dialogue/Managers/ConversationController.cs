@@ -63,12 +63,12 @@ public class ConversationController
             }
             if(dialogue_line.hasCommand)
             {
-                yield return RunCommand(dialogue_line.command);
+                yield return RunCommand(dialogue_line.commandInfo);
             }
 
             // can be used for auto mode
             //yield return new WaitForSeconds(2);
-
+            
             yield return WaitForInput();
 		}
 
@@ -93,8 +93,19 @@ public class ConversationController
 
 	}
 
-	IEnumerator RunCommand(string command)
+	IEnumerator RunCommand(DL_COMMAND commandInfo)
     {
+        foreach(var cmdInfo in commandInfo.cmdStructArr)
+        {
+            if(cmdInfo.wait)
+            {
+                yield return CommandSystem.instance.Execute(cmdInfo.name, cmdInfo.args);
+            }
+            else
+            {
+				CommandSystem.instance.Execute(cmdInfo.name, cmdInfo.args);
+			}
+        }
         yield return null;
     }
 
