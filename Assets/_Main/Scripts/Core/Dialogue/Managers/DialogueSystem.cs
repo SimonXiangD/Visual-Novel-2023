@@ -25,6 +25,8 @@ namespace Dialogue
 		public TextArchitect textArchitect;
         public string narratorName = "narrator";
 
+        public DialogueSystemConfigurationSO config;
+
 		public static DialogueSystem instance { get; private set; }
 
         public delegate void DialogueSystemEvent();
