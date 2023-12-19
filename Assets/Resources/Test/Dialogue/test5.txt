@@ -1,1 +1,3 @@
+Hello 
+Goodbye
 Dirnot as dir at 1:1 [0:angry] "Fuck this planet" Com(-u 1), Com(-d 2 3 4 5), Yell(-v 100db -c 200)    

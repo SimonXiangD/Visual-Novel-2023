@@ -74,16 +74,15 @@ namespace Dialogue
             dialogueContainer.hideName();
         }
 
-        public void Say(string line)
+        public Coroutine Say(string line)
         {
             List<string> lines = new List<string>() { line};
-            Say(lines);
+            return Say(lines);
         }
 
-        public void Say(List<string> lines)
+        public Coroutine Say(List<string> lines)
         {
-			conversationController.StartConversation(lines);
-
+			return conversationController.StartConversation(lines);
 		}
     }
 }

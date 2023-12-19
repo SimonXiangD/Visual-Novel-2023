@@ -12,13 +12,14 @@ public class ConversationController
 
     bool isRunning => process != null;
 
-    public void StartConversation(List<string> lines)
+    public Coroutine StartConversation(List<string> lines)
     {
         if(isRunning)
         {
             Stop();
         }
         process = dialogueSystem.StartCoroutine(RunningConversations(lines));
+        return process;
     }
 
     bool userPrompt = false;

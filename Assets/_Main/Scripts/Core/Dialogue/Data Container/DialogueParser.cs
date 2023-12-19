@@ -4,16 +4,17 @@ using System.Text.RegularExpressions;
 
 public class DialogueParser
 {
-	private string dividePattern = @"^(?:([^""]+)\s+)?(?:""(.*?)""\s+)?(.+\(.*\).*\s)?$";
+	private string dividePattern = @"^(?:([^""]+)\s+)?(?:""(.*?)""\s+)?(.+\(.*\).*\s+)?$";
 
 	public DIALOGUE_LINE parse(string line)
 	{
-		(string speaker, string content, string command) = rigLine( line );
+		(string speaker, string content, string command) = rigLine( line + " " );
 		return new DIALOGUE_LINE(speaker, content, command);
 	}
 
 	private (string speaker, string content, string command) rigLine(string line)
 	{
+		Debug.Log($"Start parsing string line: {line}");
 		string speaker = "";
 		string content = "";
 		string command = "";
