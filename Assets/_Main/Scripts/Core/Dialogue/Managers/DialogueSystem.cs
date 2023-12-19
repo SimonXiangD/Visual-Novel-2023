@@ -1,3 +1,4 @@
+using Character;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,14 @@ namespace Dialogue
 		{
             
 	    }
+
+        public void ApplyCharacterConfig(string name, CharacterConfigData characterConfig)
+        {
+            dialogueContainer.setContentColor(characterConfig.dialogueColor);
+            dialogueContainer.setNameColor(characterConfig.nameColor);
+            dialogueContainer.setContentFont(characterConfig.dialogueFont);
+            dialogueContainer.setNameFont(characterConfig.nameFont);
+        }
 
 
         public void showName(string text = "")

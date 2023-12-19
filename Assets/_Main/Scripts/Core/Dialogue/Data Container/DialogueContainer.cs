@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.TextCore.Text;
 
 namespace Dialogue
 {
@@ -20,6 +21,12 @@ namespace Dialogue
 
         // additional info(if exist)
         public TextMeshProUGUI infoText;
+
+        public void setContentColor( Color c) => contentText.color  = c;
+        public void setNameColor(Color c) => nameText.color  = c;
+                    
+        public void setContentFont(TMP_FontAsset fontAsset) => contentText.font = fontAsset;
+        public void setNameFont(TMP_FontAsset fontAsset) => nameText.font = fontAsset;
 
 		public void hideName()
 		{

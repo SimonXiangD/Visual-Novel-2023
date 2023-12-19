@@ -11,7 +11,7 @@ namespace Character
     {
         public static CharacterSystem instance;
         private Dictionary<string, Character> characters = new Dictionary<string, Character>();
-        private CharacterConfigSO config = DialogueSystem.instance.config.characterConfig;
+        public CharacterConfigSO config => DialogueSystem.instance.config.characterConfig ;
 
         private void Awake()
         {
@@ -20,6 +20,12 @@ namespace Character
                 instance = this;
             }
             else DestroyImmediate(instance);
+        }
+
+        public Character GetCharacter( string name )
+        {
+            if (characters.ContainsKey(name)) { return characters[name]; }
+            return null;
         }
        
         public Character createCharacter(string name )
