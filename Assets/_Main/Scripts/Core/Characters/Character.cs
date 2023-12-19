@@ -1,6 +1,7 @@
 using Dialogue;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Character
@@ -43,6 +44,12 @@ namespace Character
 
 		}
 
-    }
+        public void SetNameFont(TMP_FontAsset fontAsset) { config.nameFont = fontAsset; }
+        public void SetDialogueFont(TMP_FontAsset fontAsset) { config.dialogueFont = fontAsset; }
+        public void SetNameColor(Color c) {  config.nameColor = c; }
+        public void SetDialogueColor(Color c) {  config.dialogueColor = c; }
+        public void RevertConfig() { config = CharacterSystem.instance.GetCharacterConfigData(name); }
+
+	}
 
 }

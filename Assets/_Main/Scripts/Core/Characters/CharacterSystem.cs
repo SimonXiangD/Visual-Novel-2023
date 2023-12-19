@@ -27,6 +27,11 @@ namespace Character
             if (characters.ContainsKey(name)) { return characters[name]; }
             return null;
         }
+
+        public CharacterConfigData GetCharacterConfigData( string name )
+        {
+            return config.GetConfig(name);
+        }
        
         public Character createCharacter(string name )
         {
